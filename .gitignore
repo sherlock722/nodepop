@@ -1,0 +1,4 @@
+.idea
+node_modules
+ejemplos/pruebas.js
+npm-debug.log
