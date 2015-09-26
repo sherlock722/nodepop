@@ -12,7 +12,7 @@ var anuncioSchema = mongoose.Schema({
 });
 
 //Metodo estático
-anuncioSchema.statics.lista = function( criterios, callback) {
+/*anuncioSchema.statics.lista = function( criterios, callback) {
 
     // uso .find sin callback para que me de un objeto query sin ejecutar
     var query = Anuncio.find(criterios);
@@ -26,9 +26,8 @@ anuncioSchema.statics.lista = function( criterios, callback) {
         return callback(null, rows);
 
     });
-};
+};*/
 
 //Exportar
-
-var Anuncio = mongoose.model('Anuncio', agenteSchema);
+var Anuncio = mongoose.model('Anuncio', anuncioSchema);
 module.exports = Anuncio;

@@ -7,6 +7,29 @@ var mongoose = require('mongoose');
 //var Anuncio = require('../models/Anuncio'); // alternativa
 var Anuncio = mongoose.model('Anuncio'); //
 
+//GET
+router.get ('/', function (req,res,next){
+
+    //Es necesario instanciar el objeto anuncio en MongoDB
+    //porque el método save es un método de instancia
+    var anuncio = new Anuncio ({nombre: "Bicicleta",
+        venta: true,
+        precio: 230.15,
+        foto: "bici.jpg",
+        tags: [ "lifestyle", "motor"]});
+
+    //Crear un registro de Anuncio
+    anuncio.save(function (err, result){
+
+                    if (err) {
+                        console.log(err);
+                        return res.json({ok:false, error: err});
+                    }
+
+                    res.json({ok:true, data: result});
+
+    });
+});
 
 // devuelve una lista de agentes en JSON
 /*router.get('/', function(req, res) {
@@ -33,9 +56,9 @@ var Anuncio = mongoose.model('Anuncio'); //
 });*/
 
 // crea un Anuncio
-router.post('/', function(req, res, next) {
+/*router.post('/', function(req, res, next) {
 
-    var nuevo = req.body;
+    var nuevo = req.query;
 
     // crear un registro de anuncio
     var Anuncio = new Anuncio(nuevo); // {name:'Nuevo', age: 18}
@@ -51,7 +74,5 @@ router.post('/', function(req, res, next) {
 
     });
 
-});
-
-
+});*/
 module.exports = router;
