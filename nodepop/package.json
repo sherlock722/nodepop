@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "nodemon ./bin/www",
+    "dev": "DEBUG=servidor:* PORT=3000 nodemon ./bin/www",
     "installDB": "node ./scripts/install_db.js"
   },
   "dependencies": {

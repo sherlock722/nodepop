@@ -1,11 +1,16 @@
 "use strict";
 
-//var db = require('../connection/dbmongo');
-
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 var readLine = require('readline');
 var async = require('async');
+
+//var db = require('../connection/dbmongo');
+
+//Modelos
+var Anuncio = require ('../models/Anuncio.js');
+var Usuario = require ('../models/Usuario.js');
+
 
 //Handler de conexion
 db.once('open', function() {
@@ -30,12 +35,12 @@ db.once('open', function() {
 //Conectar a al bbdd
 mongoose.connect('mongodb://localhost/nodepop');
 
-
+//Script de llamada a la carga de Anuncios y Usuarios
 function runInstallScript() {
 
     async.series([
         initAnuncios,
-        //initUsuarios
+        initUsuarios
         ], function(err, results) {
             if (err) {
                 console.error('Hubo un error: ', err);
@@ -46,83 +51,96 @@ function runInstallScript() {
     );
 
 }
+//Carga de Anuncios
+function initAnuncios(done) { //done=cb
 
-function initAnuncios(cb) {
-    //var Anuncio = mongoose.model('Anuncio');
+    var Anuncio = mongoose.model('Anuncio');
 
-    //Definir esquema del anuncio
-    var anuncioSchema = mongoose.Schema({
-        nombre: String,
-        venta: Boolean,
-        precio: Number,
-        foto: String,
-        tags: [String]
-    });
-
-    var Anuncio = mongoose.model('Anuncio', anuncioSchema);
-
-    // elimino todos los registros y el callback crea los nuevos anuncios
+    // Se eliminan todos los registros. El callback crea los nuevos anuncios
     Anuncio.remove({}, function(res, req, next) {
 
-
         // aqui cargaríamos el json de anuncios (readFile, JSON.parse, iterar con Anuncio.save...)
-        var anuncio1 = new Anuncio ({nombre: "Bicicleta",
+
+        //En este caso al ser sólo dos Anuncios se hacen uno a uno con Anuncio.save
+
+        //Cargar el primer anuncio
+        var anuncio_1 = new Anuncio ({nombre: "Bicicleta",
             venta: true,
             precio: 230.15,
             foto: "bici.jpg",
             tags: [ "lifestyle", "motor"]});
 
         //Crear un registro de Anuncio
-        anuncio1.save(function (err, result){
+        anuncio_1.save(function (err, result){
 
             if (err) {
+
                 //console.log(err);
-                console.log ('Carga de modelo realizada con errores...', err);
-                //return process.exit(0);
+                console.log ('Carga de anuncio_1 realizada con errores...', err);
+                return process.exit(1);
                 //return res.json({ok:false, error: err});
             }
 
-            //res.json({ok:true, data: result});
-            console.log ('Carga de modelo realizada con exito...', result);
+            //return res.json({ok:true, data: result});
+            console.log ('Carga de modelo (anuncio_1) realizada con exito...', result);
             //return process.exit(0);
-
 
         });
 
         //Cargar el segundo anuncio
-        var anuncio2 = new Anuncio ({nombre: "iPhone 3GS",
+        var anuncio_2 = new Anuncio ({nombre: "iPhone 3GS",
             venta: false,
             precio: 50.15,
             foto: "iphone.jpg",
             tags: [ "lifestyle", "mobile"]});
 
         //Crear un registro de Anuncio
-        anuncio2.save(function (err, result){
+        anuncio_2.save(function (err, result){
 
             if (err) {
-                //console.log(err);
-                console.log ('Carga de modelo realizada con errores...', err);
-                return process.exit(0);
-                //return res.json({ok:false, error: err});
+
+                console.log ('Carga de anuncio_2 realizada con errores...', err);
+                return process.exit(1);
+
             }
 
-            //res.json({ok:true, data: result});
-            console.log ('Carga de modelo realizada con exito...', result);
-            return process.exit(0);
-            //
+            //return res.json({ok:true, data: result});
+            console.log ('Carga de modelo (anuncio_2) realizada con exito...', result);
+            //return process.exit(0);
+            done();
 
         });
 
     });
 
 }
-function initUsuarios(cb) {
+
+//Carga de Usuarios
+function initUsuarios(done) { //done=cb
+
     var Usuario = mongoose.model('Usuario');
 
     // elimino todos
-    Usuario.remove({}, function() {
+    Usuario.remove({}, function(res, req, next) {
 
         // aqui cargaríamos al menos un usuario (Usuario.save)
+        var usuario_1 = new Usuario ({nombre: "Juan Antonio Sanchez Rodriguez",
+            email: "abc@gmail.com",
+            clave: "telefono"});
+
+        //Crear un registro de Anuncio
+        usuario_1.save(function (err, result){
+
+            if (err) {
+
+                console.log ('Carga de modelo (usuario_1) realizada con errores...', err);
+                return process.exit(1);
+            }
+
+            console.log ('Carga de modelo (usuario_1) realizada con exito...', result);
+            done();
+
+        });
 
     });
-}*/
+}

@@ -10,6 +10,8 @@ require ('./connection/dbmongo.js');
 
 //Modelos
 require ('./models/Anuncio.js');
+require ('./models/Usuario.js');
+require ('./models/PushToken.js');
 
 
 var routes = require('./routes/index');
@@ -17,6 +19,9 @@ var users = require('./routes/users');
 
 //Ruta del controlador de anuncios
 var anuncios = require ('./routes/anuncios');
+
+//Ruta del controlador de anuncios
+var anunciosv1 = require ('./routes/apiv1/anuncios');
 
 var app = express();
 
@@ -38,6 +43,9 @@ app.use('/users', users);
 //Se añade el router (controlador) de anuncios
 app.use('/anuncios', anuncios);
 
+//Se añade el router (controlador) de anuncios en la versio 1
+//version v.1
+app.use('/apiv1/anuncios', anunciosv1);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
