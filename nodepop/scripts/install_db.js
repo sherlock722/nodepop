@@ -68,7 +68,8 @@ function initAnuncios(done) { //done=cb
             venta: true,
             precio: 230.15,
             foto: "bici.jpg",
-            tags: [ "lifestyle", "motor"]});
+            tags: [ "lifestyle", "motor"],
+            fecalta: new Date()});
 
         //Crear un registro de Anuncio
         anuncio_1.save(function (err, result){
@@ -92,7 +93,8 @@ function initAnuncios(done) { //done=cb
             venta: false,
             precio: 50.15,
             foto: "iphone.jpg",
-            tags: [ "lifestyle", "mobile"]});
+            tags: [ "lifestyle", "mobile"],
+            fecalta: new Date()});
 
         //Crear un registro de Anuncio
         anuncio_2.save(function (err, result){
@@ -126,7 +128,8 @@ function initUsuarios(done) { //done=cb
         // aqui cargaríamos al menos un usuario (Usuario.save)
         var usuario_1 = new Usuario ({nombre: "Juan Antonio Sanchez Rodriguez",
             email: "abc@gmail.com",
-            clave: "telefono"});
+            clave: "telefono",
+            fecalta: new Date()});
 
         //Crear un registro de Anuncio
         usuario_1.save(function (err, result){

@@ -14,6 +14,9 @@ require ('./models/Usuario.js');
 require ('./models/PushToken.js');
 
 
+//utils
+//require ('./utils/Error.js');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 

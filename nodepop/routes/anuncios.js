@@ -4,8 +4,11 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-//var Anuncio = require('../models/Anuncio'); // alternativa
+
 var Anuncio = mongoose.model('Anuncio'); //
+
+//Modulo de error
+var errorHandler = require ('../utils/Error.js').error;
 
 //GET
 router.get ('/', function (req,res,next){
@@ -16,44 +19,24 @@ router.get ('/', function (req,res,next){
         venta: true,
         precio: 230.15,
         foto: "bici.jpg",
-        tags: [ "lifestyle", "motor"]});
+        tags: [ "lifestyle", "motor"],
+        fecalta: new Date()});
 
     //Crear un registro de Anuncio
     anuncio.save(function (err, result){
 
                     if (err) {
-                        console.log(err);
-                        return res.json({ok:false, error: err});
+                        /*console.log(err);
+                        return res.json({ok:false, error: err});*/
+
+                        //Uso del Modulo de Error
+                        return errorHandler(err,res);
                     }
 
                     res.json({ok:true, data: result});
 
     });
 });
-
-// devuelve una lista de agentes en JSON
-/*router.get('/', function(req, res) {
-
-    //var criterios = {name:'Jones'};
-    // sacar criterios de busqueda de query-string
-    // ej. /apiv1/agentes/?name=Jones
-
-    var criterios = {};
-    if (req.query.name) {
-        criterios.name = req.query.name;
-    }
-
-    Anuncio.lista(criterios, function(err, lista) {
-        if (err) {
-            console.log(err);
-            return res.json({ok:false, error: err});
-        }
-
-        res.json({ok:true, data: lista});
-
-    });
-
-});*/
 
 // crea un Anuncio
 /*router.post('/', function(req, res, next) {
@@ -75,4 +58,5 @@ router.get ('/', function (req,res,next){
     });
 
 });*/
+
 module.exports = router;
