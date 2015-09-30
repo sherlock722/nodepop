@@ -26,6 +26,7 @@ var anuncios = require ('./routes/anuncios');
 //Ruta del controlador de anuncios
 var anunciosv1 = require ('./routes/apiv1/anuncios');
 
+
 var app = express();
 
 // view engine setup
@@ -49,6 +50,11 @@ app.use('/anuncios', anuncios);
 //Se añade el router (controlador) de anuncios en la versio 1
 //version v.1
 app.use('/apiv1/anuncios', anunciosv1);
+
+//Autenticacion
+app.use('/apiv1/admin', require('./routes/apiv1/admin'));
+//app.use('/apiv1', require('./routes/apiv1/authenticate'));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

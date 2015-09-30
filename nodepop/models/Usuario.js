@@ -10,6 +10,24 @@ var usuarioSchema = mongoose.Schema({
     fecalta : Date
 });
 
+//metodo estatico
+usuarioSchema.statics.lista = function(criterios, callback){
+
+    var query = Usuarios.find(criterios);
+    query.sort('name');
+    query.exec(function(err,rows){
+        if(err){
+            return callback(err);
+        }
+        return callback(null, rows);
+    });
+};
+//metodo de instancia
+/*usuarioSchema.methods.get = function(idUsuarios, callback){
+    console.log(this);
+    return callback(null, this);
+};*/
+
 //Exportar
 var Usuario = mongoose.model('Usuario', usuarioSchema);
 module.exports = Usuario;

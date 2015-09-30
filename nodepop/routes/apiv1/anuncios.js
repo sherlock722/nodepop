@@ -30,7 +30,7 @@ var errorHandler = require ('../../utils/Error.js').error;
 
 });*/
 
-//Lista a partir de datos de busqueda
+//Lista a partir de criterios de busqueda
 router.get('/', function(req, res) {
 
     // sacar criterios de busqueda de query-string
