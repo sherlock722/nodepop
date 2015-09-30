@@ -52,7 +52,7 @@ app.use('/anuncios', anuncios);
 app.use('/apiv1/anuncios', anunciosv1);
 
 //Autenticacion
-app.use('/apiv1/admin', require('./routes/apiv1/admin'));
+app.use('/usuario/authenticate', require('./routes/apiv1/admin'));
 //app.use('/apiv1', require('./routes/apiv1/authenticate'));
 
 

@@ -8,12 +8,13 @@ var Usuario = mongoose.model('Usuario');
 var jwt = require('jsonwebtoken');
 var configJWT = require('../../local_config');
 
-//Autenticacion
-router.post('/authenticate', function(req, res) {
+//Autenticacion (usuarios/authenticate)
+router.post('/', function(req, res) {
+
     var email =req.body.email;
     var clave =req.body.clave;
 
-    console.log ('authenticate');
+    //console.log ('authenticate');
 
     //Buscar usuario en bbdd
     Usuario.findOne({email: req.body.email, clave: req.body.clave}, function(err, user) {
@@ -50,6 +51,8 @@ router.post('/authenticate', function(req, res) {
             }
 
         }
+
+
         router.use(jwtAuth());
     });
 });

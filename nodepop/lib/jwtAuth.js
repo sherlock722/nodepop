@@ -16,6 +16,7 @@ var configJWT = require('../local_config').jwt;
  *
  * @returns {function} Express 4 middleware
  */
+
 module.exports = function() {
 
     return function(req, res, next) {
