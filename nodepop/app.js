@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,7 +13,6 @@ require ('./connection/dbmongo.js');
 require ('./models/Anuncio.js');
 require ('./models/Usuario.js');
 require ('./models/PushToken.js');
-
 
 //utils
 //require ('./utils/Error.js');
@@ -29,8 +29,12 @@ var anunciosv1 = require ('./routes/apiv1/anuncios');
 //Ruta para Autenticacion
 var auth=require('./routes/apiv1/admin');
 
+
 //Ruta para registro de Usuarios
 var altaUsuario = require ('./routes/apiv1/usuarios');
+
+//Ruta consulta Usuarios
+//var consu = require ('./routes/apiv1/usuarios');
 
 var app = express();
 
@@ -58,11 +62,12 @@ app.use('/apiv1/anuncios', anunciosv1);
 
 //Autenticacion
 app.use('/usuario/authenticate', auth);
+//app.use('/apiv1/admin', )
 //app.use('/apiv1', require('./routes/apiv1/authenticate'));
 
 //Registro de Usuarios
 app.use('/altaUsuarios', altaUsuario);
-
+app.use('/consultaUsuarios',altaUsuario);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -9,14 +9,13 @@ var sha = require ('sha256');
 //Modulo de error
 var errorHandler = require ('../../utils/Error.js').error;
 
-
 //POST Registro de usuarios
-router.post ('/', function (req, res, next){
+router.post ('/', function (req, res){
 
     //Obtenemos los datos email y clave
     var nombre = req.body.nombre;
-    var email = req.body.email
-    var clave = req.body.clave
+    var email = req.body.email;
+    var clave = req.body.clave;
 
     //Se encripta por medio del modulo "sha" la contraseña (deprecated)
     //var clave = sha(clave);
@@ -40,17 +39,23 @@ router.post ('/', function (req, res, next){
 
 });
 
-//GET Login de usuario (compruebo el que existe en bbdd)
-/*router.get ('/', function (req,res,next){
+//GET Lista de Usuarios
+router.get ('/', function (req,res,next){
 
-    .findOne(criterios,function(err,data){
+    Usuario.lista(function(err, usuarios) {
 
-    if (err) {
-        return cb(err);
-    }
-    return cb(null,data);
+        if (err) {
+            /*console.log(err);
+             return res.json({ok:false, error: err});*/
+            return errorHandler(err,res);
+        }
 
-});*/
+        res.json({ok:true, data: usuarios});
+
+    });
+
+
+});
 
 module.exports = router;
 

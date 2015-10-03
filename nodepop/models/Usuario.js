@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var mongoose = require('mongoose');
 
@@ -10,11 +10,11 @@ var usuarioSchema = mongoose.Schema({
     fecalta : Date
 });
 
-//metodo estatico
-usuarioSchema.statics.lista = function(criterios, callback){
+//metodo estatico para consultar usuarios
+usuarioSchema.statics.lista = function(callback){
 
-    var query = Usuarios.find(criterios);
-    query.sort('name');
+    var query = Usuario.find();
+    query.sort('fecalta');
     query.exec(function(err,rows){
         if(err){
             return callback(err);

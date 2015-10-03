@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 exports.error = function (err, res){
         console.error(err.message);

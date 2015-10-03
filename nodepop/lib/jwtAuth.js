@@ -1,7 +1,9 @@
-"use strict";
+'use strict';
+
 
 var jwt = require('jsonwebtoken');
 var configJWT = require('../local_config').jwt;
+
 /**
  * JWT auth middleware for use with Express 4.x.
  *
@@ -10,11 +12,14 @@ var configJWT = require('../local_config').jwt;
  *
  * @returns {function} Express 4 middleware
  */
+
 module.exports = function() {
 
     return function(req, res, next) {
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
+        console.log ('entra');
+        console.log ('tok',token);
 
         // decode token
         if (token) {

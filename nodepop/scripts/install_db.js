@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var mongoose = require('mongoose');
 var db = mongoose.connection;
@@ -6,9 +6,6 @@ var readLine = require('readline');
 var async = require('async');
 var sha = require ('sha256');
 var passUser = require('../local_config').passUser;
-
-//var db = require('../connection/dbmongo');
-
 //Modelos
 var Anuncio = require ('../models/Anuncio.js');
 var Usuario = require ('../models/Usuario.js');
@@ -59,18 +56,18 @@ function initAnuncios(done) { //done=cb
     var Anuncio = mongoose.model('Anuncio');
 
     // Se eliminan todos los registros. El callback crea los nuevos anuncios
-    Anuncio.remove({}, function(res, req, next) {
+    Anuncio.remove({}, function() {
 
         // aqui cargaríamos el json de anuncios (readFile, JSON.parse, iterar con Anuncio.save...)
 
         //En este caso al ser sólo dos Anuncios se hacen uno a uno con Anuncio.save
 
         //Cargar el primer anuncio
-        var anuncio_1 = new Anuncio ({nombre: "Bicicleta",
+        var anuncio_1 = new Anuncio ({nombre: 'Bicicleta',
             venta: true,
             precio: 230.15,
-            foto: "bici.jpg",
-            tags: [ "lifestyle", "motor"],
+            foto: 'bici.jpg',
+            tags: [ 'lifestyle', 'motor'],
             fecalta: new Date()});
 
         //Crear un registro de Anuncio
@@ -91,11 +88,11 @@ function initAnuncios(done) { //done=cb
         });
 
         //Cargar el segundo anuncio
-        var anuncio_2 = new Anuncio ({nombre: "iPhone 3GS",
+        var anuncio_2 = new Anuncio ({nombre: 'iPhone 3GS',
             venta: false,
             precio: 50.15,
-            foto: "iphone.jpg",
-            tags: [ "lifestyle", "mobile"],
+            foto: 'iphone.jpg',
+            tags: [ 'lifestyle', 'mobile'],
             fecalta: new Date()});
 
         //Crear un registro de Anuncio
@@ -125,11 +122,11 @@ function initUsuarios(done) { //done=cb
     var Usuario = mongoose.model('Usuario');
 
     // elimino todos
-    Usuario.remove({}, function(res, req, next) {
+    Usuario.remove({}, function() {
 
         // aqui cargaríamos al menos un usuario (Usuario.save)
-        var usuario_1 = new Usuario ({nombre: "Juan Antonio Sanchez Rodriguez",
-            email: "abc@gmail.com",
+        var usuario_1 = new Usuario ({nombre: 'Juan Antonio Sanchez Rodriguez',
+            email: 'abc@gmail.com',
             clave: sha(passUser.pass),
             fecalta: new Date()});
 

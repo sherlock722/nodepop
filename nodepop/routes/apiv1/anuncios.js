@@ -1,15 +1,11 @@
-"use strict";
-
+'use strict';
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-
+//var mongoose = require('mongoose');
 //Modelo
 var Anuncio = require ('../../models/Anuncio.js');
-
 //Modulo de error
 var errorHandler = require ('../../utils/Error.js').error;
-
 
 //GET
 //Devuelve una lista de anuncios en JSON (sin criterios)
@@ -59,6 +55,10 @@ router.get('/', function(req, res) {
 
         criterios.tags = req.query.tags;
     }
+    /*if (typeof req.query.token !=='undefined'){
+        criterios.token = req.query.token;
+    }*/
+
     //Limite e inicio
     if (typeof req.query.limit !== 'undefined') {
         limite = parseInt(req.query.limit) || 10;
@@ -92,8 +92,5 @@ router.get('/', function(req, res) {
         res.json(rows);
     });
 });*/
-
-
-
 module.exports = router;
 

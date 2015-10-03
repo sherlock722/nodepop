@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "dev": "DEBUG=servidor:* PORT=3000 nodemon ./bin/www",
-    "installDB": "node ./scripts/install_db.js"
+    "installDB": "node ./scripts/install_db.js",
+    "hints": "jshint . || true"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -14,6 +15,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "jshint": "^2.8.0",
     "jsonwebtoken": "^5.0.5",
     "mongoose": "^4.1.8",
     "morgan": "~1.6.1",

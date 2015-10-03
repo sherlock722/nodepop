@@ -1,7 +1,5 @@
-"use strict";
-
+'use strict';
 var mongoose = require('mongoose');
-
 //Definir esquema del anuncio
 var anuncioSchema = mongoose.Schema({
     nombre: String,
@@ -11,29 +9,22 @@ var anuncioSchema = mongoose.Schema({
     tags: [String],
     fecalta : Date
 });
-
 //Metodo estático
 anuncioSchema.statics.lista = function(cb) {
-
     // uso .find
     var query = Anuncio.find({});
     query.sort('nombre'); //Ordenado por nombre
-
     query.exec( function(err, rows) {
         if (err) {
             return cb(err);
         }
-
         return cb(null, rows);
-
     });
 };
 
-
+//Metodo estatico para consultar anuncios
 anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, callback) {
-
     var query = Anuncio.find();
-
     //En caso de que no haya criterios se ordenan los anuncios por fecha descendente
     if (criterios === null) {
 
@@ -45,29 +36,26 @@ anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, c
         if (criterios.tags && criterios.tags.length > 0) {
             query.where('tags').in(new Array (criterios.tags));//.in pide que sea un array lo que le pase.
          }
-
         //Filtro por ventas
         if (criterios.venta){
             query.where({'venta': criterios.venta});
-
         }
         //Filtro x precio
         if (criterios.precio){
-
             var guion ='-';
             var cad =criterios.precio.split(guion,2);
 
             if  (cad.length > 1) {
 
-                if (cad[0] !== "" && cad[1] !== "") {
+                if (cad[0] !== '' && cad[1] !== '') {
 
                     query.where({precio: {'$gte': cad[0], '$lte': cad[1]}});
 
-                } else if (cad[0] !== "" && cad[1] === "") {
+                } else if (cad[0] !== '' && cad[1] === '') {
 
                     query.where({precio: {'$gte': cad[0]}});
 
-                } else if (cad[0] === "" && cad[1] !== "") {
+                } else if (cad[0] === '' && cad[1] !== '') {
 
                     query.where({precio: {'$lte': cad[1]}});
 
@@ -80,8 +68,9 @@ anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, c
         }
         //Filtro por nombre (expresion regular)
         if (criterios.nombre){
-            query.where ({'nombre': criterios.nombre = new RegExp('^'+ criterios.nombre,"i")});
+            query.where ({'nombre': criterios.nombre = new RegExp('^'+ criterios.nombre,'i')});
         }
+
     }
     //Inicio y limites
     query.skip(inicio);
