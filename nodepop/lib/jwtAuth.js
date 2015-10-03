@@ -1,13 +1,7 @@
 "use strict";
 
-/**
- * Your utility library for express
- */
-
 var jwt = require('jsonwebtoken');
 var configJWT = require('../local_config').jwt;
-//var configJWT = require('../local_config');
-
 /**
  * JWT auth middleware for use with Express 4.x.
  *
@@ -16,19 +10,15 @@ var configJWT = require('../local_config').jwt;
  *
  * @returns {function} Express 4 middleware
  */
-
 module.exports = function() {
 
     return function(req, res, next) {
 
-        // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
-        console.log ('entra');
-        console.log ('tok',token);
+
         // decode token
         if (token) {
 
-            // verifies secret and checks exp
             jwt.verify(token, configJWT.secret, function(err, decoded) {
                 if (err) {
                     return res.json({ ok: false, error: {code: 401, message: 'Failed to authenticate token.'}});

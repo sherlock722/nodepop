@@ -26,6 +26,11 @@ var anuncios = require ('./routes/anuncios');
 //Ruta del controlador de anuncios
 var anunciosv1 = require ('./routes/apiv1/anuncios');
 
+//Ruta para Autenticacion
+var auth=require('./routes/apiv1/admin');
+
+//Ruta para registro de Usuarios
+var altaUsuario = require ('./routes/apiv1/usuarios');
 
 var app = express();
 
@@ -52,8 +57,11 @@ app.use('/anuncios', anuncios);
 app.use('/apiv1/anuncios', anunciosv1);
 
 //Autenticacion
-app.use('/usuario/authenticate', require('./routes/apiv1/admin'));
+app.use('/usuario/authenticate', auth);
 //app.use('/apiv1', require('./routes/apiv1/authenticate'));
+
+//Registro de Usuarios
+app.use('/altaUsuarios', altaUsuario);
 
 
 // catch 404 and forward to error handler

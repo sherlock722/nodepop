@@ -4,7 +4,6 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-
 var Anuncio = mongoose.model('Anuncio'); //
 
 //Modulo de error

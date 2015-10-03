@@ -33,30 +33,44 @@ var errorHandler = require ('../../utils/Error.js').error;
 //Lista a partir de criterios de busqueda
 router.get('/', function(req, res) {
 
-    // sacar criterios de busqueda de query-string
+    // Criterios (filtros) de busqueda de query-string
     var criterios = {};
+    var inicio;
+    var limite;
 
-    if (req.query.nombre) {
+    if (typeof req.query.nombre !=='undefined') {
         criterios.nombre = req.query.nombre;
     }
 
-    if (req.query.venta) {
+    if (typeof req.query.venta!=='undefined') {
         criterios.venta = req.query.venta;
     }
 
-    if (req.query.precio) {
+    if (typeof req.query.precio!=='undefined') {
         criterios.precio = req.query.precio;
+
     }
 
-    if (req.query.foto) {
+    if (typeof req.query.foto !== 'undefined') {
         criterios.foto = req.query.foto;
     }
 
-    if (req.query.tags) {
+    if (typeof req.query.tags!== 'undefined') {
+
         criterios.tags = req.query.tags;
     }
+    //Limite e inicio
+    if (typeof req.query.limit !== 'undefined') {
+        limite = parseInt(req.query.limit) || 10;
+    }
 
-    Anuncio.listaconcriterios(criterios, function(err, lista) {
+    if (typeof req.query.start !== 'undefined') {
+        inicio = parseInt (req.query.start) || 0;
+    }
+
+    //Se llama al metodo listaconcriterios del modelo
+    Anuncio.listaconcriterios(criterios, inicio, limite, function(err, lista) {
+
         if (err) {
             /*console.log(err);
             return res.json({ok:false, error: err});*/
@@ -68,6 +82,18 @@ router.get('/', function(req, res) {
     });
 
 });
+
+//Recuperar solo los tags
+/*router.get('/tags', function(req, res, next) {
+    ads.listTags(function(err,rows){
+        if (err) {
+            return next(err)
+        }
+        res.json(rows);
+    });
+});*/
+
+
 
 module.exports = router;
 

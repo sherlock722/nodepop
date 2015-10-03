@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 var readLine = require('readline');
 var async = require('async');
+var sha = require ('sha256');
+var passUser = require('../local_config').passUser;
 
 //var db = require('../connection/dbmongo');
 
@@ -128,7 +130,7 @@ function initUsuarios(done) { //done=cb
         // aqui cargaríamos al menos un usuario (Usuario.save)
         var usuario_1 = new Usuario ({nombre: "Juan Antonio Sanchez Rodriguez",
             email: "abc@gmail.com",
-            clave: "telefono",
+            clave: sha(passUser.pass),
             fecalta: new Date()});
 
         //Crear un registro de Anuncio

@@ -22,11 +22,9 @@ usuarioSchema.statics.lista = function(criterios, callback){
         return callback(null, rows);
     });
 };
-//metodo de instancia
-/*usuarioSchema.methods.get = function(idUsuarios, callback){
-    console.log(this);
-    return callback(null, this);
-};*/
+
+//Crear Index por email
+usuarioSchema.index({'email':1},{ unique: true });
 
 //Exportar
 var Usuario = mongoose.model('Usuario', usuarioSchema);
