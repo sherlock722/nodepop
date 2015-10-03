@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 var jwt = require('jsonwebtoken');
 var configJWT = require('../../local_config');
+var sha = require ('sha256');
 
 //Autenticacion (usuarios/authenticate)
 router.post('/', function(req, res) {
@@ -14,24 +15,22 @@ router.post('/', function(req, res) {
     var email =req.body.email;
     var clave =req.body.clave;
 
-    //console.log ('authenticate');
-
     //Buscar usuario en bbdd
-    Usuario.findOne({email: req.body.email, clave: req.body.clave}, function(err, user) {
+    //Usuario.findOne({email: req.body.email, clave: sha(req.body.clave)}, function(err, user) {
 
-        //var user = { email:'abc@gmail.com',clave:'telefono'};
+    Usuario.findOne({email: req.body.email, nombre:req.body.nombre}, function(err, user) {
 
         if (err) {
             return res.status(500).json({ok: false, error: {code: 500, message: err.message}});
         }
 
-        //Si no lo encontramos
+        //Si no se encuentra al usuario
         if (!user) {
             return res.json({ok: false, error: {code: 401, message: 'Authentication failed. User not found.'}});
         } else if (user) {
 
             // check if clave matches
-            if (user.clave != req.body.clave) {
+            if (user.clave != sha(req.body.clave)) {
                 res.json({ok: false, error: {code: 401, message: 'Authentication failed. Wrong password.'}});
             } else {
 
@@ -40,18 +39,17 @@ router.post('/', function(req, res) {
                 var token = jwt.sign(user, configJWT.jwt.secret, {
                     expiresInMinutes: configJWT.jwt.expiresInMinutes
                 });
-
+                
                 // return the information including token as JSON
                 res.json({
                     ok: true,
-                    message: 'Enjoy your token!',
+                    //message: 'Enjoy your token!',
                     token: token
                 });
 
             }
 
         }
-
 
         router.use(jwtAuth());
     });
