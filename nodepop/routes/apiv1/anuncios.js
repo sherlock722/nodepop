@@ -34,6 +34,15 @@ router.get('/', function(req, res) {
     var inicio;
     var limite;
 
+
+
+    if (typeof req.query.idioma !=='undefined') {
+        criterios.idioma = req.query.idioma;
+    }
+
+    console.log ('idioma',criterios.idioma);
+
+
     if (typeof req.query.nombre !=='undefined') {
         criterios.nombre = req.query.nombre;
     }
@@ -74,7 +83,7 @@ router.get('/', function(req, res) {
 
         if (err) {
 
-            return errorHandler(err,res);
+            return errorHandler(err, res, criterios.idioma);
         }
 
         res.json({ok:true, data: lista});

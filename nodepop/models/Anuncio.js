@@ -16,6 +16,7 @@ var anuncioSchema = mongoose.Schema({
     fecalta : Date
 });
 
+
 //Metodo estático lista de anuncios ordenados por nombre
 anuncioSchema.statics.lista = function(cb) {
     // uso .find
@@ -100,7 +101,8 @@ anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, c
 
         } else { //token no valido
 
-            return callback('Failed to authenticate token.');
+            //Se prueba el mensaje de error en función del idioma
+            return callback('Error_token',criterios.idioma);
         }
     });
 };

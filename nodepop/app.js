@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 //Conexion a bbdd
 require ('./connection/dbmongo.js');
 
@@ -80,6 +81,7 @@ app.use('/apiv1/tags', listaTags);
 //Alta push-token
 app.use('/apiv1/pushToken', pushToken);
 
+
 //Fotos (iphone/bici)
 app.use ('/images/anuncios/iphone.png', express.static (__dirname + '/public/images/iphone.jpg'));
 app.use ('/images/anuncios/bici.png', express.static (__dirname + '/public/images/bici.jpg'));
@@ -95,6 +97,7 @@ app.use ('/images/anuncios/bici.png', express.static (__dirname + '/public/image
   next()
 
 });*/
+
 
 
 // catch 404 and forward to error handler
