@@ -33,6 +33,7 @@ router.post ('/', function (req, res){
             return errorHandler(err,res);
         }
         // devolver una confirmación
+        req.usuario=usuario.nombre;//Guardamos el nombre del usuario
         res.json({ok:true, usuario: creado});
 
     });

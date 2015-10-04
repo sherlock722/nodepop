@@ -5,5 +5,8 @@ module.exports = {
     },
     passUser: {
         pass:'contraseñaparaelusuariodescriptinicial'
+    },
+    tags:{
+        tags:['mobile', 'motor', 'lifestyle']
     }
 };

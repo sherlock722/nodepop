@@ -32,22 +32,7 @@ router.get ('/', function (req,res){
                     res.json({ok:true, data: result});
     });
 });
-// crea un Anuncio
-/*router.post('/', function(req, res, next) {
 
-    var nuevo = req.query;
-
-    // crear un registro de anuncio
-    var Anuncio = new Anuncio(nuevo); // {name:'Nuevo', age: 18}
-
-    Anuncio.save( function(err, creado) {
-        if (err) {
-            console.log(err);
-            return res.json({ok:false, error: err});
-        }
-        // devolver una confirmación
-        res.json({ok:true, Anuncio: creado});
-    });
-
-});*/
 module.exports = router;
+
+

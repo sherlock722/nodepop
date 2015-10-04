@@ -34,8 +34,6 @@ router.get('/', function(req, res) {
     var inicio;
     var limite;
 
-    var tokenHead=req.headers['x-access-token']||0;//Valor por defecto en caso de no venir en la cabecera
-
     if (typeof req.query.nombre !=='undefined') {
         criterios.nombre = req.query.nombre;
     }
@@ -46,7 +44,6 @@ router.get('/', function(req, res) {
 
     if (typeof req.query.precio!=='undefined') {
         criterios.precio = req.query.precio;
-
     }
 
     if (typeof req.query.foto !== 'undefined') {
@@ -57,6 +54,7 @@ router.get('/', function(req, res) {
 
         criterios.tags = req.query.tags;
     }
+    //Token a verificar
     if (typeof req.query.token !=='undefined'){
         criterios.token = req.query.token;
     }
@@ -71,7 +69,8 @@ router.get('/', function(req, res) {
     }
 
     //Se llama al metodo listaconcriterios del modelo
-    Anuncio.listaconcriterios(criterios, inicio, limite, tokenHead, function(err, lista) {
+    Anuncio.listaconcriterios(criterios, inicio, limite, function(err, lista) {
+
 
         if (err) {
 
@@ -84,14 +83,5 @@ router.get('/', function(req, res) {
 
 });
 
-//Recuperar solo los tags
-/*router.get('/tags', function(req, res, next) {
-    ads.listTags(function(err,rows){
-        if (err) {
-            return next(err)
-        }
-        res.json(rows);
-    });
-});*/
 module.exports = router;
 
