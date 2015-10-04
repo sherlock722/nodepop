@@ -41,7 +41,7 @@ router.post ('/', function (req, res){
 });
 
 //GET Lista de Usuarios
-router.get ('/', function (req,res,next){
+router.get ('/', function (req,res){
 
     Usuario.lista(function(err, usuarios) {
 

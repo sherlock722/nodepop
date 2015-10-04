@@ -103,7 +103,7 @@ anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, c
             return callback('Failed to authenticate token.');
         }
     });
-}
+};
 
 anuncioSchema.statics.listaTags = function(cb) {
 
@@ -114,9 +114,7 @@ anuncioSchema.statics.listaTags = function(cb) {
         for (var x=0; x<tags.length;x++) {
             return cb(null, tags);
          }
-
-}
-
+};
 
 //Exportar
 var Anuncio = mongoose.model('Anuncio', anuncioSchema);

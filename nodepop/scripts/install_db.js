@@ -58,8 +58,6 @@ function initAnuncios(done) { //done=cb
     // Se eliminan todos los registros. El callback crea los nuevos anuncios
     Anuncio.remove({}, function() {
 
-        // aqui cargaríamos el json de anuncios (readFile, JSON.parse, iterar con Anuncio.save...)
-
         //En este caso al ser sólo dos Anuncios se hacen uno a uno con Anuncio.save
 
         //Cargar el primer anuncio
