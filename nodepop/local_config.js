@@ -11,7 +11,7 @@ module.exports = {
     },
     esJsones: {
           "Error_generico": "Error desconocido",
-          "Otro_Error": "Error",
+          "Otro_Error": "Otro error",
           "Error_token": "Error al autentificar el Token"
     },
     esJsonen: {

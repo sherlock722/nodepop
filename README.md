@@ -22,3 +22,6 @@
 
 <b>-Consulta de usuarios:</b> Es un método GET que se muestra en la ruta http://localhost:3000/consultaUsuarios.
 
+<b>Internacionalizacion:</b> Para probar la internacionalización del error, esta sólamente se ha implementado en la consulta de anuncios cuando el token no es correcto. En la query-string se debe pasar el parametro idioma (con los valores en o es). En caso de no pasar ninguno de ellos o alguno distinto a los comentados por error, por defecto se muestra el error en español. Los valores de los errores en los distintos idiomas se encuentran en el archivo local_config.js. Se ha creado un modulo Error.js, que recibe como parametros la clave el error (parametro err) y el idioma (parametro idioma). 
+
+
