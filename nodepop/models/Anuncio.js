@@ -1,5 +1,8 @@
 'use strict';
+
 var mongoose = require('mongoose');
+
+
 //Definir esquema del anuncio
 var anuncioSchema = mongoose.Schema({
     nombre: String,
@@ -9,7 +12,8 @@ var anuncioSchema = mongoose.Schema({
     tags: [String],
     fecalta : Date
 });
-//Metodo estático
+
+//Metodo estático lista de anuncios ordenados por nombre
 anuncioSchema.statics.lista = function(cb) {
     // uso .find
     var query = Anuncio.find({});
@@ -22,68 +26,86 @@ anuncioSchema.statics.lista = function(cb) {
     });
 };
 
+var errortoken = function (err,req,res){
+    if (err){
+        return res.json({ok:false, error: err});
+    }
+};
+
 //Metodo estatico para consultar anuncios
-anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, callback) {
-    var query = Anuncio.find();
-    //En caso de que no haya criterios se ordenan los anuncios por fecha descendente
-    if (criterios === null) {
+anuncioSchema.statics.listaconcriterios = function( criterios, inicio, limite, tokenHead, callback) {
 
-        query.sort({fecalta: -1}); //-1 ordena de manera descendente los anuncios, del mas nuevo al mas antiguo.
+    //Se comprueba el token del header con el de la query-string
+    if (criterios.token === tokenHead) {
 
-    }else { //Existen criterios en query-string
+        var query = Anuncio.find();
 
-        //Filtro x tags
-        if (criterios.tags && criterios.tags.length > 0) {
-            query.where('tags').in(new Array (criterios.tags));//.in pide que sea un array lo que le pase.
-         }
-        //Filtro por ventas
-        if (criterios.venta){
-            query.where({'venta': criterios.venta});
-        }
-        //Filtro x precio
-        if (criterios.precio){
-            var guion ='-';
-            var cad =criterios.precio.split(guion,2);
+        //En caso de que no haya criterios se ordenan los anuncios por fecha descendente
+        if (criterios === null) {
 
-            if  (cad.length > 1) {
+            query.sort({fecalta: -1}); //-1 ordena de manera descendente los anuncios, del mas nuevo al mas antiguo.
 
-                if (cad[0] !== '' && cad[1] !== '') {
+        } else { //Existen criterios en query-string
 
-                    query.where({precio: {'$gte': cad[0], '$lte': cad[1]}});
+            //Filtro x tags
+            if (criterios.tags && criterios.tags.length > 0) {
+                query.where('tags').in(new Array(criterios.tags));//.in pide que sea un array lo que le pase.
+            }
+            //Filtro por ventas
+            if (criterios.venta) {
+                query.where({'venta': criterios.venta});
+            }
+            //Filtro x precio
+            if (criterios.precio) {
+                var guion = '-';
+                var cad = criterios.precio.split(guion, 2);
 
-                } else if (cad[0] !== '' && cad[1] === '') {
+                if (cad.length > 1) {
 
-                    query.where({precio: {'$gte': cad[0]}});
+                    if (cad[0] !== '' && cad[1] !== '') {
 
-                } else if (cad[0] === '' && cad[1] !== '') {
+                        query.where({precio: {'$gte': cad[0], '$lte': cad[1]}});
 
-                    query.where({precio: {'$lte': cad[1]}});
+                    } else if (cad[0] !== '' && cad[1] === '') {
 
-                }
-            } else {
+                        query.where({precio: {'$gte': cad[0]}});
+
+                    } else if (cad[0] === '' && cad[1] !== '') {
+
+                        query.where({precio: {'$lte': cad[1]}});
+
+                    }
+                } else {
 
                     query.where({'precio': criterios.precio});
+                }
+
+            }
+            //Filtro por nombre (expresion regular)
+            if (criterios.nombre) {
+                query.where({'nombre': criterios.nombre = new RegExp('^' + criterios.nombre, 'i')});
             }
 
         }
-        //Filtro por nombre (expresion regular)
-        if (criterios.nombre){
-            query.where ({'nombre': criterios.nombre = new RegExp('^'+ criterios.nombre,'i')});
-        }
+
+        //Inicio y limites
+        query.skip(inicio);
+        query.limit(limite);
+
+        query.exec(function (err, rows) {
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null, rows);
+        });
+
+    } else { //token no valido
+        return callback('Failed to authenticate token.');
 
     }
-    //Inicio y limites
-    query.skip(inicio);
-    query.limit(limite);
 
-    query.exec( function(err, rows) {
-        if (err) {
-            return callback(err);
-        }
-
-        return callback(null, rows);
-    });
-};
+}
 
 //Exportar
 var Anuncio = mongoose.model('Anuncio', anuncioSchema);

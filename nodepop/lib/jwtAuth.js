@@ -18,8 +18,6 @@ module.exports = function() {
     return function(req, res, next) {
 
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
-        console.log ('entra');
-        console.log ('tok',token);
 
         // decode token
         if (token) {

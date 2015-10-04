@@ -6,6 +6,8 @@
 
 var app = require('../app');
 var debug = require('debug')('nodepop:server');
+var debug = require('debug')('cluster:server');
+var debug = require('debug')('ssl:server');
 var http = require('http');
 
 /**
@@ -15,20 +17,57 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
+//Control de cluster
+var cluster = require('cluster');
 
-var server = http.createServer(app);
+if (cluster.isMaster) {
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  cluster.on('listening', function(worker, address) {
+    console.log('Worker ' + worker.id + ' con pid ' + worker.process.pid + ' is now connected to port ' +
+        address.port);
+  });
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  cluster.on('exit', function(worker, code, signal) {
+    console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+    console.log('Starting a new worker');
+    cluster.fork();
+  });
 
+  cluster.on('disconnect', function(worker) {
+    console.log('The worker #' + worker.id + ' has disconnected');
+  });
+
+  var numCPUs = require('os').cpus().length;
+
+  console.log('starting cluster for ' + numCPUs + ' cpus...');
+
+  // Fork workers.
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+} else {
+
+  /**
+   * Create HTTP server.
+   */
+
+  //SSL
+  var fs = require('fs');
+  var options = {
+    key: fs.readFileSync('certificados/host.key'),
+    cert: fs.readFileSync('certificados/host.cert')
+  };
+  var server = http.createServer(app);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 /**
  * Normalize a port into a number, string, or false.
  */

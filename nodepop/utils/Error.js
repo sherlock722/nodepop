@@ -1,6 +1,5 @@
 'use strict';
 
 exports.error = function (err, res){
-        console.error(err.message);
-        res.json (err);
+        res.json({ok:false, error: err});
 };

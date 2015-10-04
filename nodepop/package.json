@@ -6,7 +6,8 @@
     "start": "nodemon ./bin/www",
     "dev": "DEBUG=servidor:* PORT=3000 nodemon ./bin/www",
     "installDB": "node ./scripts/install_db.js",
-    "hints": "jshint . || true"
+    "hints": "jshint . || true",
+    "devssl": "DEBUG=ssl:* PORT=443 nodemon ./bin/www"
   },
   "dependencies": {
     "async": "^1.4.2",

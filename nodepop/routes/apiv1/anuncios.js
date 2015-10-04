@@ -34,6 +34,8 @@ router.get('/', function(req, res) {
     var inicio;
     var limite;
 
+    var tokenHead=req.headers['x-access-token']||0;//Valor por defecto en caso de no venir en la cabecera
+
     if (typeof req.query.nombre !=='undefined') {
         criterios.nombre = req.query.nombre;
     }
@@ -55,9 +57,9 @@ router.get('/', function(req, res) {
 
         criterios.tags = req.query.tags;
     }
-    /*if (typeof req.query.token !=='undefined'){
+    if (typeof req.query.token !=='undefined'){
         criterios.token = req.query.token;
-    }*/
+    }
 
     //Limite e inicio
     if (typeof req.query.limit !== 'undefined') {
@@ -69,11 +71,10 @@ router.get('/', function(req, res) {
     }
 
     //Se llama al metodo listaconcriterios del modelo
-    Anuncio.listaconcriterios(criterios, inicio, limite, function(err, lista) {
+    Anuncio.listaconcriterios(criterios, inicio, limite, tokenHead, function(err, lista) {
 
         if (err) {
-            /*console.log(err);
-            return res.json({ok:false, error: err});*/
+
             return errorHandler(err,res);
         }
 

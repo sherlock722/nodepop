@@ -1,0 +1,61 @@
+SHA1 Fingerprint=5B:B6:50:48:2B:DC:A6:11:C3:AA:2C:BA:83:6F:90:FE:7B:C8:66:5B
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            da:da:d3:01:5e:7d:df:af
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=ES, ST=Madrid, L=Madrid, O=NewComp, OU=Dpto IT, CN=NewComp/emailAddress=localhost@localhost
+        Validity
+            Not Before: Oct  4 07:56:42 2015 GMT
+            Not After : Oct  1 07:56:42 2025 GMT
+        Subject: C=ES, ST=Madrid, L=Madrid, O=NewComp, OU=Dpto IT, CN=NewComp/emailAddress=localhost@localhost
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (2048 bit)
+                Modulus (2048 bit):
+                    00:d3:d1:8b:34:bc:e7:3b:84:47:f9:50:b4:02:e8:
+                    1d:cc:0f:45:a7:12:07:d1:cc:33:b9:1b:c0:53:35:
+                    0d:c4:a0:00:b8:82:52:20:2e:36:38:e6:a9:b0:9f:
+                    b5:f2:33:30:2b:ec:d6:08:53:78:41:be:af:eb:cc:
+                    62:77:8a:72:61:da:5b:09:28:d8:f3:ae:01:9d:18:
+                    35:56:1b:c1:27:4c:5b:f1:95:38:7f:00:d8:15:d5:
+                    97:78:7c:a2:c3:ab:78:96:df:a8:5f:31:74:89:10:
+                    11:a7:8e:fd:27:5e:a9:e5:9c:6b:e2:6d:75:ea:12:
+                    96:e3:65:0d:8e:50:46:0e:4c:96:87:d0:97:1a:6e:
+                    19:99:95:20:a2:1a:1d:bc:6a:2a:ee:e9:e1:81:d4:
+                    ea:ae:f4:8d:d7:27:c2:02:d4:10:c4:f8:b6:ff:00:
+                    ef:8c:05:02:b3:53:77:7d:bf:62:73:20:e4:e3:47:
+                    56:36:56:82:4f:a4:a1:45:02:89:55:28:4d:a9:94:
+                    32:91:8b:48:7d:c3:54:3e:79:e7:65:13:59:d2:c6:
+                    97:f7:3b:6b:9c:9c:a1:d8:10:13:a5:af:27:fa:6b:
+                    41:55:e6:19:a7:a5:02:a2:ad:7f:26:f4:6a:1d:9e:
+                    94:65:f2:b7:2a:b7:b5:1c:51:16:12:6b:52:b3:a9:
+                    66:17
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                D9:8B:E1:27:44:BE:93:0C:41:5A:F8:3F:9F:A2:5D:59:0D:AF:FF:B2
+            X509v3 Authority Key Identifier: 
+                keyid:D9:8B:E1:27:44:BE:93:0C:41:5A:F8:3F:9F:A2:5D:59:0D:AF:FF:B2
+                DirName:/C=ES/ST=Madrid/L=Madrid/O=NewComp/OU=Dpto IT/CN=NewComp/emailAddress=localhost@localhost
+                serial:DA:DA:D3:01:5E:7D:DF:AF
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha1WithRSAEncryption
+        85:40:2c:cc:b0:90:ac:92:f7:eb:b4:83:4a:d6:8d:68:3a:7d:
+        69:16:d8:bb:8d:38:92:84:32:e1:02:9e:51:a6:ec:bc:be:d4:
+        05:8a:f3:c0:ef:97:b7:9d:12:63:bb:18:ee:2f:b3:e3:41:87:
+        8d:b6:cb:bb:4a:2d:3a:5b:eb:e8:5c:3b:0d:20:86:e5:ad:7d:
+        6c:10:21:85:ab:96:b3:4f:b2:c0:1a:81:90:49:8f:d2:7c:46:
+        9c:7f:36:7d:0a:93:c1:76:53:5d:6d:bf:fe:7e:be:5c:3a:83:
+        82:be:c8:43:a9:b5:7e:0d:24:46:71:01:47:a4:e9:01:64:68:
+        ea:42:6c:96:eb:8b:5f:c2:6e:3d:6e:8d:da:86:ec:93:3f:c5:
+        39:93:52:fe:fc:c5:46:ba:26:4c:c8:7b:e2:8e:23:80:d2:03:
+        dd:57:26:60:94:6d:90:28:48:05:3b:0e:c9:f9:96:5c:68:ee:
+        f0:b6:af:a8:07:9e:57:31:46:f0:ec:84:ea:96:6d:87:5a:b1:
+        6e:1f:95:d1:48:c9:19:39:b2:56:4a:2d:c9:4e:9f:83:ef:37:
+        f6:06:00:0f:a9:ad:5a:91:48:22:e2:24:fd:cb:bf:ae:43:c4:
+        e5:8a:0d:52:a3:70:e6:80:06:eb:ab:28:71:1c:c7:3c:9e:6a:
+        ef:7e:d5:56
